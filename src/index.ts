@@ -1,3 +1,6 @@
-export function sum (...args: number[]): number {
-    return args.reduce((prev, total) => total + prev, 0)
+import utilsyMath from "./math/math";
+
+
+export {
+    utilsyMath,
 }
