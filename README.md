@@ -1,2 +1,2 @@
-# sy
+# utilsy
 A javascript library
