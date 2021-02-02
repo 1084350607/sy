@@ -1,0 +1,25 @@
+{
+  "name": "utilsy",
+  "version": "0.0.14",
+  "description": "",
+  "main": "dist/utilsy.cjs.js",
+  "module": "dist/utilsy.esm.js",
+  "types": "dist/types",
+  "scripts": {
+    "build": "rollup -c",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "typescript",
+    "library",
+    "util"
+  ],
+  "author": "Jiuran",
+  "license": "ISC",
+  "devDependencies": {
+    "rollup": "^2.38.4",
+    "rollup-plugin-terser": "^7.0.2",
+    "rollup-plugin-typescript2": "^0.29.0",
+    "typescript": "^4.1.3"
+  }
+}
