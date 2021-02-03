@@ -1,4 +1,4 @@
-class Mathsy {
+class MathSy {
     static random(min: number, max: number): number {
         return ((max - min) * Math.random() + min)
     }
@@ -6,10 +6,10 @@ class Mathsy {
         if (start > end) {
             [start, end] = [end, start]
         }
-        return (target >= start && target < end) ? true : false
+        return target >= start && target < end
     }
 }
 
-let utilsyMath = new Mathsy()
+let utilsyMath = new MathSy()
 
 export default utilsyMath
