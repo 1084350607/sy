@@ -1,8 +1,15 @@
 class MathSy {
-    static random(min: number, max: number): number {
+    private static _instance: MathSy | undefined
+    static getInstance () {
+        if (!this._instance) {
+            this._instance = new MathSy()
+        }
+        return this._instance
+    }
+    random(min: number, max: number): number {
         return ((max - min) * Math.random() + min)
     }
-    static inRange(target: number, end: number, start: number = 0 ): boolean {
+    inRange(target: number, end: number, start: number = 0 ): boolean {
         if (start > end) {
             [start, end] = [end, start]
         }
@@ -10,6 +17,4 @@ class MathSy {
     }
 }
 
-let utilsyMath = new MathSy()
-
-export default utilsyMath
+export default MathSy.getInstance()

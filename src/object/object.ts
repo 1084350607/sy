@@ -3,7 +3,14 @@ interface IterateeFunc {
 }
 
 class ObjectSy {
-    static some(obj: Object, iteratee: IterateeFunc): boolean | void {
+    private static _instance: null | ObjectSy = null
+    public static getInstance (): ObjectSy {
+        if (!this._instance) {
+            this._instance = new ObjectSy()
+        }
+        return this._instance
+    }
+    some(obj: Object, iteratee: IterateeFunc): boolean | void {
         if (typeof iteratee !== "function") {
             console.error('[Utilsy Error] Type error, callback must be a function')
         } else {
@@ -18,7 +25,7 @@ class ObjectSy {
             return flag
         }
     }
-    static every(obj: Object, iteratee: IterateeFunc): boolean | void {
+    every(obj: Object, iteratee: IterateeFunc): boolean | void {
         if (typeof iteratee !== "function") {
             console.error('[Utilsy Error] Type error, callback must be a function')
         } else {
@@ -37,4 +44,6 @@ class ObjectSy {
         }
     }
 }
+
+export default ObjectSy.getInstance()
 
