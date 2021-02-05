@@ -1,6 +1,6 @@
 {
   "name": "utilsy",
-  "version": "0.0.14",
+  "version": "0.0.15",
   "description": "",
   "main": "dist/utilsy.cjs.js",
   "module": "dist/utilsy.esm.js",
@@ -8,7 +8,8 @@
   "scripts": {
     "eslint": "eslint ./src/index.ts",
     "build": "rollup -c",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "release": "npx rollup -c && npm publish"
   },
   "keywords": [
     "typescript",
