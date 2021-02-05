@@ -1,48 +1,64 @@
-interface IterateeFunc {
-    (key, value, obj): boolean
-}
+import { ObjIterateeFunc, NullAndUndefined } from "../interface";
 
 class ObjectSy {
-    private static _instance: null | ObjectSy = null
-    public static getInstance (): ObjectSy {
-        if (!this._instance) {
-            this._instance = new ObjectSy()
-        }
-        return this._instance
-    }
-    some(obj: Object, iteratee: IterateeFunc): boolean | void {
-        if (typeof iteratee !== "function") {
-            console.error('[Utilsy Error] Type error, callback must be a function')
-        } else {
-            let index = -1
-            let objValue = Object.values(obj)
-            let objKey = Object.keys(obj)
+  private static _instance: null | ObjectSy = null
 
-            let flag = false
-            while (++index < objValue.length) {
-                flag = iteratee(objKey[index], objValue[index], obj) !== false ? true : flag
-            }
-            return flag
-        }
+  public static getInstance(): ObjectSy {
+    if (!this._instance) {
+      this._instance = new ObjectSy()
     }
-    every(obj: Object, iteratee: IterateeFunc): boolean | void {
-        if (typeof iteratee !== "function") {
-            console.error('[Utilsy Error] Type error, callback must be a function')
-        } else {
-            let index = -1
-            let objValue = Object.values(obj)
-            let objKey = Object.keys(obj)
+    return this._instance
+  }
 
-            let flag = true
-            while (++index < objValue.length) {
-                if (!flag) {
-                    break
-                }
-                flag = iteratee(objKey[index], objValue[index], obj) === true
-            }
-            return flag
-        }
+  //Judge an Object if there is an item conforms the iteratee's condition
+  some (obj: object | NullAndUndefined, iteratee: ObjIterateeFunc): boolean {
+    let flag = false
+
+    if (obj === null || obj === undefined) {
+      throw new TypeError('The first parameter must be object')
     }
+
+    for (const [key, value] of Object.entries(obj)) {
+      flag = iteratee(key, value, obj) ? true : flag
+    }
+
+    return flag
+  }
+
+  // Judge an Object if items all conforms the iteratee's condition
+  every (obj: object | NullAndUndefined, iteratee: ObjIterateeFunc): boolean {
+    let flag = true
+
+    if (obj === null || obj === undefined) {
+      throw new TypeError('The first parameter must be object')
+    }
+
+    for (const [key, value] of Object.entries(obj)) {
+      if (!flag) {
+        break
+      }
+      flag = iteratee(key, value, obj) ? true : flag
+    }
+
+    return flag
+  }
+
+  // return a new object by the iteratee condition
+  filter(obj: object | NullAndUndefined, iteratee: ObjIterateeFunc): object | NullAndUndefined {
+    let newObj = {}
+
+    if (obj === null || obj === undefined) {
+      return obj
+    }
+
+    for (const [key, value] of Object.entries(obj)) {
+      if (iteratee(key, value, obj)) {
+        newObj[key] = value
+      }
+    }
+
+    return newObj
+  }
 }
 
 export default ObjectSy.getInstance()
