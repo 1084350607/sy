@@ -1,5 +1,4 @@
-import { ArrayIterateeFunc, NullAndUndefined} from "../interface"
-import { arrayTest } from "./test"
+import { ArrayIterateeFunc } from "../common"
 
 class ArraySy {
   private static _instance: null | ArraySy = null
@@ -11,32 +10,21 @@ class ArraySy {
     return this._instance
   }
 
-  forEach(array: Array<any> | NullAndUndefined, iteratee: ArrayIterateeFunc): Array<any> | NullAndUndefined {
-    if (array === null || array === undefined) {
-      return array
-    }
+  // Performs the specified action for each element in an array.
+  forEach(array: Array<any>, iteratee: ArrayIterateeFunc): Array<any> {
     let index = -1
 
-    // error test
-    arrayTest(array)
-
     while (++index < array.length) {
-      if(iteratee(array[index], index, array) === false) {
-        break
-      }
+      iteratee(array[index], index, array)
     }
+
     return array
   }
 
-  map(array: Array<any> | NullAndUndefined, iteratee: ArrayIterateeFunc): Array<any> | NullAndUndefined {
-    if (array === null || array === undefined) {
-      return array
-    }
+  // Calls a defined callback function on each element of an array, and returns an array that contains the results.
+  map (array: Array<any>, iteratee: ArrayIterateeFunc): Array<any> {
     let index = -1,
         result = Array(array.length)
-
-    // error test
-    arrayTest(array)
 
     while (++index < array.length) {
       result[index] = iteratee(array[index] ,index, array)
@@ -45,7 +33,7 @@ class ArraySy {
     return result
   }
 
-  isArray (array: Array<any>): boolean{
+  isArray (array: ReadonlyArray<any>): boolean{
     return Array.isArray(array)
   }
 }
