@@ -38,4 +38,5 @@ class ArraySy {
   }
 }
 
+
 export default ArraySy.getInstance()

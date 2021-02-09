@@ -1,6 +1,6 @@
 {
   "name": "utilsy",
-  "version": "0.0.15",
+  "version": "0.0.16",
   "description": "",
   "main": "dist/utilsy.cjs.js",
   "module": "dist/utilsy.esm.js",

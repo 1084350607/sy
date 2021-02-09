@@ -1,4 +1,4 @@
-import {ObjIterateeFunc} from "../common";
+import {ObjIterateeFunc, Objects } from "../common";
 import { isFunction } from "../common/common";
 
 function isObject(target): boolean {
@@ -8,7 +8,7 @@ function isObject(target): boolean {
   return true
 }
 
-class ObjectSy {
+class ObjectSy implements Objects {
   private static _instance: null | ObjectSy = null
 
   public static getInstance(): ObjectSy {
@@ -18,18 +18,7 @@ class ObjectSy {
     return this._instance
   }
 
-  /**
-   * Object.assign
-   * 1.相同属性：后面的覆盖前面的(✅)
-   * 2.拷贝Symbol(✅)
-   * 3.继承属性和不可枚举属性不可拷贝(✅)
-   * 4.原始类型会被包装为对象(✅):
-   *   原始类型会被包装，null 和 undefined 会被忽略。
-   *   注意，只有字符串的包装对象才可能有自身可枚举属性,所以理论上只有字符串可以被包装
-   * 5.异常会打断后续拷贝任务(✅): 比如assign中修改readonly属性
-   * 6.第一个参数传入function会抛出TypeError(✅)
-  **/
-  assign(target: object, ...sources: any[]): object{
+  assign (target: object, ...sources: any[]): object {
     if (!isObject(target)) {
       throw new TypeError('The target must be an Object not a function')
     }
@@ -50,7 +39,7 @@ class ObjectSy {
     })
     return target
   }
-  // 该方法类似与assign,只不过会遍历继承属性
+
   assignIn (target: object, ...sources: any[]): object | void {
     isObject(target)
     let assignValue = (): object => {
@@ -96,14 +85,12 @@ class ObjectSy {
     return assignValue()
   }
 
-  // Performs the specified action for each element in a object.
   forEach (obj: object, iteratee: ObjIterateeFunc<void>): void {
     for (let [key, value] of Object.entries(obj)) {
       iteratee(key, value, obj)
     }
   }
 
-  //Judge an Object if there is an item conforms the iteratee's condition
   some (obj: object, iteratee: ObjIterateeFunc<boolean>): boolean {
     let flag = false
 
@@ -114,7 +101,6 @@ class ObjectSy {
     return flag
   }
 
-  // Judge an Object if items all conforms the iteratee's condition
   every (obj: object, iteratee: ObjIterateeFunc<boolean>): boolean {
     let flag = true
 
@@ -128,7 +114,6 @@ class ObjectSy {
     return flag
   }
 
-  // Returns the elements of a object that meet the condition specified in a callback function.
   filter(obj: object, iteratee: ObjIterateeFunc<boolean>): object {
     let newObj = {}
 
